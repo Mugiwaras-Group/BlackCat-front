@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class VendaService {
 
   http = inject(HttpClient);
-  api = environment.SERVIDOR+"/api/venda";
+  api = environment.SERVIDOR+"/venda";
 
   constructor() { }
 
