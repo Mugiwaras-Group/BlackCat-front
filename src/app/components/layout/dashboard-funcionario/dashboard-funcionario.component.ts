@@ -6,7 +6,6 @@ import { Venda } from '../../../models/venda';
 import { Router } from '@angular/router';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "../header/header.component";
 
 @Component({
   selector: 'app-dashboard-funcionario',
@@ -24,13 +23,11 @@ export class DashboardFuncionarioComponent implements OnInit {
   router = inject(Router);
 
   vendasPorUsuario: Venda[] = [];
-  usuarioId: number = 0;
+  usuarioId = 0;
   selectVenda: Venda | null = null;
-  modalRef!: MdbModalRef<any>;
+  modalRef!: MdbModalRef<unknown>;
   numeroVendasDia: number | null = null;  
-  @ViewChild('modalVenda') modalVendaTemplate!: TemplateRef<any>;
-
-  constructor() {}
+  @ViewChild('modalVenda') modalVendaTemplate!: TemplateRef<unknown>;
 
   ngOnInit(): void {
     const usuario = this.loginService.getUsuarioLogado();

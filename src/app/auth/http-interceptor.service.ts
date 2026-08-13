@@ -16,7 +16,7 @@ export const meuhttpInterceptor: HttpInterceptorFn = (request, next) => {
   }
 
   return next(request).pipe(
-    catchError((err: any) => {
+    catchError((err: HttpErrorResponse) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
           alertService.showAlert('Sessão Expirada', 'error'); 

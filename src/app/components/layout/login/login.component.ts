@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { Login } from '../../../auth/login';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { LoginService } from '../../../auth/login.service';
 import { AlertService } from '../../../services/alert.service';
 
@@ -65,17 +64,4 @@ export class LoginComponent {
     this.passwordField.nativeElement.focus();
   }
 
-  autenticar() {
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      },
-    });
-  }
 }

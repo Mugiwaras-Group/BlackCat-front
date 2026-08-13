@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { filter, map, merge, mergeMap } from 'rxjs';
+import { filter, map, mergeMap } from 'rxjs';
 
 
 @Component({

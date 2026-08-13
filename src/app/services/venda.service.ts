@@ -12,8 +12,6 @@ export class VendaService {
   http = inject(HttpClient);
   api = environment.SERVIDOR+"/venda";
 
-  constructor() { }
-
   save(venda : Venda) : Observable<string>{
     return this.http.post<string>(this.api+"/save", venda, {responseType: "text" as "json"});
   }
@@ -34,7 +32,7 @@ export class VendaService {
   }
 
   findByDate(dataInicio : string, dataFim : string) : Observable<Venda[]>{
-    let datas = new HttpParams().set("startDate", dataInicio).set("endDate", dataFim);
+    const datas = new HttpParams().set("startDate", dataInicio).set("endDate", dataFim);
     return this.http.get<Venda[]>(this.api+"/findByData", {params: datas});
   }
 

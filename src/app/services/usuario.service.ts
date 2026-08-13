@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../auth/usuario';
 import { UserUpdateResponse } from '../models/user-update-response';
@@ -21,7 +21,7 @@ export class UsuarioService {
   }
 
   //CRUD - Read - findAll
-  findAll(ativo: boolean = true): Observable<Usuario[]> {
+  findAll(ativo = true): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.API}/findAll?ativo=${ativo}`);
   }
 

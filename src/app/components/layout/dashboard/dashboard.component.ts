@@ -1,16 +1,14 @@
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { VendaService } from '../../../services/venda.service';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { Venda } from '../../../models/venda';
-import Swal from 'sweetalert2';
-import { Router, RouterLink } from '@angular/router';
+import { Router, } from '@angular/router';
 import {
   MdbModalModule,
   MdbModalRef,
   MdbModalService,
 } from 'mdb-angular-ui-kit/modal';
-import { VendaComponent } from '../../vendas/venda/venda.component';
 import { AlertService } from '../../../services/alert.service'; // Import AlertService
 
 @Component({
@@ -20,11 +18,11 @@ import { AlertService } from '../../../services/alert.service'; // Import AlertS
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   modalService = inject(MdbModalService);
-  @ViewChild('modalVenda') modalvendatemplate!: TemplateRef<any>;
-  modalRef!: MdbModalRef<any>;
+  @ViewChild('modalVenda') modalvendatemplate!: TemplateRef<unknown>;
+  modalRef!: MdbModalRef<unknown>;
   alertService = inject(AlertService)
   vendaService = inject(VendaService);
   router = inject(Router);
@@ -39,11 +37,10 @@ export class DashboardComponent {
   mes: number = new Date().getMonth() + 1;
   anoMensal: number = new Date().getFullYear();
   anoAnual: number= new Date().getFullYear();
-  usuarioId: number = 0;
+  usuarioId = 0;
 
   filteredVendas: Venda[] = []; 
-  usuarioNome: string = ''; 
-  constructor() {}
+  usuarioNome = ''; 
 
   ngOnInit(): void {
     this.getHistoricoVendas(); 
