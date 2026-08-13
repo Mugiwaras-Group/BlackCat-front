@@ -1,6 +1,6 @@
-import { booleanAttribute, Component, EventEmitter, inject, Input, OnInit, Output, TemplateRef, ViewChild, viewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { UsuarioService } from '../../../services/usuario.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { MdbModalModule, MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { UsuarioFormComponent } from '../usuario-form/usuario-form.component';
@@ -16,13 +16,13 @@ import { Usuario } from '../../../auth/usuario';
 })
 export class UsuarioListComponent {
 
-  @Input() modoAddUser: boolean = false;
-  @Output() retorno = new EventEmitter<any>;
+  @Input() modoAddUser = false;
+  @Output() retorno = new EventEmitter<unknown>;
 
   //VARIAVEIS DE CONTEXTO
   lista: Usuario[] = [];
   usuarioEdit: Usuario = new Usuario();
-  ativo: boolean = true;
+  ativo = true;
 
   //SERVICES
   usuarioService = inject(UsuarioService);
@@ -30,8 +30,8 @@ export class UsuarioListComponent {
 
   //ELEMENTOS DE MODAL
   modalService = inject(MdbModalService);
-  @ViewChild("modalUsuarioForm") modalUsuarioForm!: TemplateRef<any>;
-  modalRef!: MdbModalRef<any>;
+  @ViewChild("modalUsuarioForm") modalUsuarioForm!: TemplateRef<unknown>;
+  modalRef!: MdbModalRef<unknown>;
   
 
   constructor( private alertService: AlertService) {
@@ -39,7 +39,7 @@ export class UsuarioListComponent {
   }
 
 
-  findAll(ativo: boolean = true) {
+  findAll(ativo = true) {
     this.usuarioService.findAll(ativo).subscribe({
       next: (lista) => {
         this.lista = lista;
@@ -117,7 +117,7 @@ export class UsuarioListComponent {
     this.modalRef = this.modalService.open(this.modalUsuarioForm);
   }
 
-  retornoForm( usuario : Usuario) {
+  retornoForm() {
     this.modalRef.close();
     this.findAll();
   }

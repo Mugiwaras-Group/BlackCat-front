@@ -26,9 +26,7 @@ export class AlertService {
   showConfirmDialogWithImg(
     message: string,
     txt: string,
-    confirmButtonText: string,
-    img: string
-  ) {
+    confirmButtonText: string) {
     return Swal.fire({
       imageUrl: 'https://unsplash.it/400/200',
       imageWidth: 400,
@@ -95,7 +93,7 @@ export class AlertService {
         if (typeof parsedError === 'object' && parsedError !== null) {
           msg = Object.values(parsedError).join(' | ');
         }
-      } catch (e) {
+      } catch {
         msg = erro.error || 'Erro desconhecido';
       }
     }

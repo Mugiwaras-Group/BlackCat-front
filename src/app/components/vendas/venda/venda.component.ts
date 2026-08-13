@@ -1,28 +1,15 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild, } from '@angular/core';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { Venda } from '../../../models/venda';
 import { ProdutosListComponent } from '../../produtos/produtos-list/produtos-list.component';
-import {
-  MdbModalModule,
-  MdbModalRef,
-  MdbModalService,
-} from 'mdb-angular-ui-kit/modal';
+import { MdbModalModule, MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit/modal';
 import { VendaService } from '../../../services/venda.service';
 import { FormsModule } from '@angular/forms';
-import { UsuarioListComponent } from '../../usuarios/usuario-list/usuario-list.component';
-import Swal from 'sweetalert2';
 import { Produto } from '../../../models/produto';
 import { ProdutoVenda } from '../../../models/produto-venda';
 import { AlertService } from '../../../services/alert.service';
 import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
 import { CommonModule } from '@angular/common';
-import { Usuario } from '../../../auth/usuario';
 import { LoginService } from '../../../auth/login.service';
 
 @Component({
@@ -40,11 +27,11 @@ import { LoginService } from '../../../auth/login.service';
   styleUrl: './venda.component.scss',
 })
 export class VendaComponent {
-  vendaValida: boolean = false;
+  vendaValida = false;
 
   modalService = inject(MdbModalService);
-  @ViewChild('userList') userList!: TemplateRef<any>;
-  modalRef!: MdbModalRef<any>;
+  @ViewChild('userList') userList!: TemplateRef<unknown>;
+  modalRef!: MdbModalRef<unknown>;
 
   alertService = inject(AlertService);
 
@@ -54,9 +41,9 @@ export class VendaComponent {
 
   vendaService = inject(VendaService);
 
-  nomeSearch: string = '';
+  nomeSearch = '';
 
-  showResult: boolean = false;
+  showResult = false;
 
   totalVendaText = 'R$ 0,00';
 
@@ -100,14 +87,14 @@ export class VendaComponent {
 
   addProduct(produto: Produto) {
     if (produto) {
-      let encontrado : boolean = false;
-      for(let i = 0; i < this.venda.produtosVenda.length; i++){
-        if(this.venda.produtosVenda[i].produto.id == produto.id){
+      let encontrado = false;
+      for (const prodVenda of this.venda.produtosVenda) {
+        if (prodVenda.produto.id === produto.id) {
           encontrado = true;
         }
       }
       if (!encontrado) {
-        let prodVenda = new ProdutoVenda();
+        const prodVenda = new ProdutoVenda();
         prodVenda.produto = produto;
         prodVenda.quantidade = 1;
         this.venda.produtosVenda.push(prodVenda);
@@ -123,7 +110,7 @@ export class VendaComponent {
   }
 
   removerProdVenda(prodVenda: ProdutoVenda) {
-    let index = this.venda.produtosVenda.findIndex((x) => {
+    const index = this.venda.produtosVenda.findIndex((x) => {
       return x.id == prodVenda.id;
     });
     this.venda.produtosVenda.splice(index, 1);
@@ -131,12 +118,12 @@ export class VendaComponent {
   }
 
   calcularTotal() {
-    if(this.venda.desconto <= 100){
+    if (this.venda.desconto <= 100) {
       let total = 0;
-      let prodsVenda = this.venda.produtosVenda;
+      const prodsVenda = this.venda.produtosVenda;
       if (prodsVenda.length > 0) {
-        for (let i = 0; i < prodsVenda.length; i++) {
-          total += prodsVenda[i].produto.preco * prodsVenda[i].quantidade;
+        for (const prodVenda of prodsVenda) {
+          total += prodVenda.produto.preco * prodVenda.quantidade;
         }
         if (this.venda.desconto > 0) {
           total -= total * (this.venda.desconto / 100);
@@ -144,7 +131,7 @@ export class VendaComponent {
         this.totalVendaText = `R$ ${total.toFixed(2)}`;
       }
       this.verificarVenda();
-    }else{
+    } else {
       this.alertService.showToast("O desconto deve ser menor que 100%", "warning");
       this.verificarVenda();
     }
@@ -153,15 +140,15 @@ export class VendaComponent {
   verificarVenda() {
     this.vendaValida = Boolean(
       this.venda.usuario != null &&
-        this.venda.produtosVenda &&
-        this.venda.produtosVenda.length > 0 &&
-        this.venda.formaPagamento &&
-        this.venda.formaPagamento !== 'Forma de pagamento' &&
-        this.venda.desconto <= 100
+      this.venda.produtosVenda &&
+      this.venda.produtosVenda.length > 0 &&
+      this.venda.formaPagamento &&
+      this.venda.formaPagamento !== 'Forma de pagamento' &&
+      this.venda.desconto <= 100
     );
   }
 
-  setFormaPagamento(formaPagamento : string) {
+  setFormaPagamento(formaPagamento: string) {
     this.venda.formaPagamento = formaPagamento;
     this.verificarVenda();
   }
@@ -192,7 +179,7 @@ export class VendaComponent {
       this.calcularTotal();
       this.verificarVenda();
     }
-    if(prodVenda.quantidade == 0){
+    if (prodVenda.quantidade == 0) {
       this.removerProdVenda(prodVenda);
     }
   }

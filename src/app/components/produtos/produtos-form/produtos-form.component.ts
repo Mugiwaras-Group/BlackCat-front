@@ -1,9 +1,9 @@
-import { Component, EventEmitter, inject, Input, NgModule, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ProdutoService } from '../../../services/produto.service';
 import { Produto } from '../../../models/produto';
-import { MdbFormControlComponent, MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { AlertService } from '../../../services/alert.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { AlertService } from '../../../services/alert.service';
   templateUrl: './produtos-form.component.html',
   styleUrls: ['./produtos-form.component.scss'],
 })
-export class ProdutosFormComponent {
+export class ProdutosFormComponent implements OnChanges {
   @Input() produto!: Produto;
   @Output() retorno = new EventEmitter<Produto>();
 

@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../../services/alert.service';
 import { Usuario } from '../../../auth/usuario';
 import { LoginService } from '../../../auth/login.service';
-import { Login } from '../../../auth/login';
 
 @Component({
   selector: 'app-usuario-form',
@@ -17,8 +16,8 @@ import { Login } from '../../../auth/login';
 })
 export class UsuarioFormComponent {
 
-  @Input("usuario") usuario: Usuario = new Usuario();
-  @Output("retorno") retorno = new EventEmitter<any>();
+  @Input() usuario: Usuario = new Usuario();
+  @Output() retorno = new EventEmitter<unknown>();
   router = inject(ActivatedRoute);
   router2 = inject(Router);
   usuarioService = inject(UsuarioService);
@@ -27,7 +26,7 @@ export class UsuarioFormComponent {
   loginService = inject(LoginService);
 
   constructor () { 
-   let id = this.router.snapshot.params['id'];
+   const id = this.router.snapshot.params['id'];
     if (id) {
       this.findById(id);
     }

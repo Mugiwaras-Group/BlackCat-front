@@ -9,7 +9,6 @@ import { VendaComponent } from './components/vendas/venda/venda.component';
 import { loginGuard } from './auth/login.guard';
 import { InvalidAcessComponent } from './components/invalid-acess/invalid-acess.component';
 import { ProdutosFormComponent } from './components/produtos/produtos-form/produtos-form.component';
-import { Title } from '@angular/platform-browser';
 import { DashboardFuncionarioComponent } from './components/layout/dashboard-funcionario/dashboard-funcionario.component';
 
 export const routes: Routes = [

@@ -1,11 +1,10 @@
-import { Component, ViewChild, TemplateRef, OnInit, NgModule, Input, inject, Output, EventEmitter, input, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, TemplateRef, Input, inject, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { Produto } from '../../../models/produto';
 import { ProdutoService } from '../../../services/produto.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ProdutosFormComponent } from '../produtos-form/produtos-form.component';
 import { AlertService } from '../../../services/alert.service';
-import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -15,19 +14,19 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './produtos-list.component.html',
   styleUrls: ['./produtos-list.component.scss'],
 })
-export class ProdutosListComponent {
+export class ProdutosListComponent implements OnChanges {
 
-  @Input() nomePesquisa: string = '';
-  @Input() modoAddProduct : boolean = false;
+  @Input() nomePesquisa = '';
+  @Input() modoAddProduct  = false;
   @Output() retorno = new EventEmitter();
 
   alertService = inject(AlertService);
 
   lista: Produto[] = [];
   produtoEdit: Produto = new Produto(); 
-  ativo: boolean = true;
-  @ViewChild("modalProdutoDetalhe") modalProdutoDetalhe!: TemplateRef<any>;
-  modalRef!: MdbModalRef<any>;
+  ativo = true;
+  @ViewChild("modalProdutoDetalhe") modalProdutoDetalhe!: TemplateRef<unknown>;
+  modalRef!: MdbModalRef<unknown>;
   produtoService = inject(ProdutoService);
   modalService = inject(MdbModalService);
   router = inject(Router);
@@ -57,7 +56,7 @@ export class ProdutosListComponent {
       },
     });
   }
-  findAll(ativo: boolean = true) {
+  findAll(ativo = true) {
     this.produtoService.findAll(ativo).subscribe({
       next: lista => {
         this.lista = lista;
@@ -106,10 +105,12 @@ export class ProdutosListComponent {
     this.produtoEdit = Object.assign({}, produto); 
     this.modalRef = this.modalService.open(this.modalProdutoDetalhe);
   }
-  retornoDetalhe(produto: Produto) {
+  
+  retornoDetalhe() {
     this.findAllAtivos();
     this.modalRef.close();
   }
+  
   desativarProduto(produto: Produto) {
     this.alertService.showConfirmDialog("Atenção!", `Tem certeza que deseja desativar o produto ${produto.nome}?`, "Sim", "warning").then((result) => {
       if (result.isConfirmed) {

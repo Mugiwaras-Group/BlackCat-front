@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { jwtDecode, JwtPayload } from "jwt-decode";
@@ -13,9 +13,6 @@ export class LoginService {
 
   http = inject(HttpClient);
   API = environment.SERVIDOR+ "/login";
-
-
-  constructor() { }
 
 
   logar(login: Login): Observable<string> {
@@ -35,7 +32,7 @@ export class LoginService {
   }
 
   jwtDecode() {
-    let token = this.getToken();
+    const token = this.getToken();
     if (token) {
       return jwtDecode<JwtPayload>(token);
     }
@@ -43,7 +40,7 @@ export class LoginService {
   }
 
   hasPermission(role: string) {
-    let user = this.jwtDecode() as Usuario;
+    const user = this.jwtDecode() as Usuario;
     if (user.role == role)
       return true;
     else
@@ -51,7 +48,7 @@ export class LoginService {
   }
 
   getUsuarioLogado() {
-    let user = this.jwtDecode() as Usuario;
+    const user = this.jwtDecode() as Usuario;
    return user;
    }
 
